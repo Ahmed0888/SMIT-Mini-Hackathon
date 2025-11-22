@@ -294,7 +294,7 @@ function renderPosts() {
         </div>
       </div>
       <div class="post-body" >
-        <div>  style="overflow: hidden  "${escapeHtml(post.text)}</div>
+        <div  style="overflow: hidden"> ${escapeHtml(post.text)}</div>
         ${
           post.image
             ? `<img src="${escapeAttr(
