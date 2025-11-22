@@ -246,3 +246,30 @@ footer {
   text-align: center;
   color: var(--muted);
 }
+
+.feed {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.card.post {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  transition: transform 0.2s;
+}
+
+.card.post:hover {
+  transform: translateY(-5px);
+}
+
+.post-body img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+}
