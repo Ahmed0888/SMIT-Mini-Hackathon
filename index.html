@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mini Social Feed</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  </head>
+  <body>
+    <!-- LOGIN / SIGNUP VIEWS -->
+    <div id="auth" class="center-screen">
+      <div class="card auth-card">
+        <h2 id="auth-title">Login</h2>
+        <form id="auth-form">
+          <input type="text" id="name" placeholder="Name" />  
+          <input type="email" id="email" placeholder="Email" required />
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <div class="auth-actions">
+            <button type="submit" id="auth-submit">Login</button>
+            <button type="button" id="toggle-auth">Go to Signup</button>
+          </div>
+          <!-- <label class="remember">
+            <input type="checkbox" id="rememberMe" /> Auto-login on refresh
+          </label> -->
+        </form>
+      </div>
+    </div>
+
+    <!-- APP -->
+    <div id="app" class="hidden">
+      <header class="header">
+        <div class="brand">MiniFeed</div>
+        <div class="header-right">
+          <div id="welcome">Welcome, User</div>
+          <button id="theme-toggle" title="Toggle Dark/Light">🌙</button>
+          <button id="logout">Logout</button>
+        </div>
+      </header>
+
+      <main class="container">
+        <!-- Controls -->
+        <section class="controls">
+          <input id="search" placeholder="Search posts..." />
+          <!-- <button id="search">submit</button> -->
+          <select id="sort">
+            <option value="latest">Latest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="most-liked">Most Liked</option>
+          </select>
+        </section>
+
+        <!-- Create Post -->
+        <section class="create-post card">
+          <textarea id="post-text" placeholder="create post "></textarea>
+          <input id="post-image" placeholder="Image URL (optional)" />
+          <div class="create-row">
+            <div class="emoji-picker">
+              <button type="button" data-emoji="😀">😀</button>
+              <button type="button" data-emoji="🔥">🔥</button>
+              <button type="button" data-emoji="❤️">❤️</button>
+              <button type="button" data-emoji="🎉">🎉</button>
+              <button type="button" data-emoji="😂">😂</button>
+            </div>
+            <button id="post-btn">Post</button>
+          </div>
+        </section>
+
+        <!-- Feed -->
+        <section id="feed" class="feed"></section>
+      </main>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal hidden">
+      <div class="modal-card">
+        <h3>Edit Post</h3>
+        <textarea id="edit-text"></textarea>
+        <input id="edit-image" />
+        <div class="modal-actions">
+          <button id="save-edit">Save</button>
+          <button id="cancel-edit">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
