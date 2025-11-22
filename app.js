@@ -73,7 +73,7 @@ function setAuthMode(login) {
   authTitle.textContent = login ? "Login" : "Signup";
   authSubmit.textContent = login ? "Login" : "Signup";
   toggleAuth.textContent = login ? "Go to Signup" : "Go to Login";
-  nameInput.style.display = login ? "none" : "block"; 
+  nameInput.style.display = login ? "none" : "block";
 }
 toggleAuth.addEventListener("click", () => setAuthMode(!isLogin));
 
@@ -208,7 +208,7 @@ emojiButtons.forEach((btn) => {
 //           )}</div>
 //           <div class="meta">CreatedAt: ${new Date(post.createdAt).toLocaleString()}</div>
 //         </div>
-         
+
 //       </div>
 //       <div class="post-body">
 //         <div>${escapeHtml(post.text)}</div>
@@ -288,21 +288,27 @@ function renderPosts() {
       <div class="post-head">
         <div>Posted By:
           <div style="font-weight:700 ">${escapeHtml(post.author.name)}</div>
-          <div class="meta">CreatedAt: ${new Date(post.createdAt).toLocaleString()}</div>
+          <div class="meta">CreatedAt: ${new Date(
+            post.createdAt
+          ).toLocaleString()}</div>
         </div>
       </div>
-      <div class="post-body">
-        <div>${escapeHtml(post.text)}</div>
+      <div class="post-body" >
+        <div>  style="overflow: hidden  "${escapeHtml(post.text)}</div>
         ${
           post.image
-            ? `<img src="${escapeAttr(post.image)}" alt="post image" onerror="this.style.display='none'"/>`
+            ? `<img src="${escapeAttr(
+                post.image
+              )}" alt="post image" onerror="this.style.display='none'"/>`
             : ""
         }
         <div class="actions">
           <!-- Like button visible to all -->
           <button class="btn like-btn ${
             post.likedBy && post.likedBy.includes(state.user.id) ? "liked" : ""
-          }" data-action="like">❤️ <span class="like-count">${post.likes || 0}</span></button>
+          }" data-action="like">❤️ <span class="like-count">${
+      post.likes || 0
+    }</span></button>
           
           <!-- Edit/Delete buttons only for the author -->
           ${
@@ -314,11 +320,17 @@ function renderPosts() {
         </div>
       </div>
     `;
-    
+
     // Event delegation handlers
-    div.querySelector('[data-action="like"]').addEventListener("click", () => toggleLike(post.id));
-    div.querySelector('[data-action="delete"]')?.addEventListener("click", () => deletePost(post.id));
-    div.querySelector('[data-action="edit"]')?.addEventListener("click", () => openEdit(post.id));
+    div
+      .querySelector('[data-action="like"]')
+      .addEventListener("click", () => toggleLike(post.id));
+    div
+      .querySelector('[data-action="delete"]')
+      ?.addEventListener("click", () => deletePost(post.id));
+    div
+      .querySelector('[data-action="edit"]')
+      ?.addEventListener("click", () => openEdit(post.id));
     feed.appendChild(div);
   });
 }

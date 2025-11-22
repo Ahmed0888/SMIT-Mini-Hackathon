@@ -273,3 +273,22 @@ footer {
   border-radius: 8px;
   margin-top: 10px;
 }
+.card.post {
+  position: relative;
+  padding-bottom: 60px; /* space for fixed buttons */
+}
+
+/* Make action bar fixed at bottom INSIDE the card */
+.card.post .actions {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  right: 15px;
+
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+
+  background: var(--card);
+  padding: 8px 0;
+}
