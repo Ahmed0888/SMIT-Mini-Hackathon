@@ -166,11 +166,95 @@ emojiButtons.forEach((btn) => {
 });
 
 // ---------- Render Posts ----------
+// function renderPosts() {
+//   const q = searchInput.value.trim().toLowerCase();
+//   let list = state.posts.slice();
+
+//   // Filter by search text
+//   if (q) {
+//     list = list.filter(
+//       (p) =>
+//         (p.text || "").toLowerCase().includes(q) ||
+//         (p.author?.name || "").toLowerCase().includes(q)
+//     );
+//   }
+
+//   // Sort
+//   const sortMode = sortSelect.value;
+//   if (sortMode === "latest") {
+//     list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+//   } else if (sortMode === "oldest") {
+//     list.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+//   } else if (sortMode === "most-liked") {
+//     list.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+//   }
+
+//   // Build HTML
+//   feed.innerHTML = "";
+//   if (list.length === 0) {
+//     feed.innerHTML = `<div class="card small-muted">No posts yet. Be the first! 🎉</div>`;
+//     return;
+//   }
+
+//   list.forEach((post) => {
+//     const div = document.createElement("div");
+//     div.className = "card post";
+//     div.dataset.id = post.id;
+//     div.innerHTML = `
+//       <div class="post-head">
+//         <div>Posted By:
+//           <div style="font-weight:700 ">${escapeHtml(
+//             post.author.name
+//           )}</div>
+//           <div class="meta">CreatedAt: ${new Date(post.createdAt).toLocaleString()}</div>
+//         </div>
+         
+//       </div>
+//       <div class="post-body">
+//         <div>${escapeHtml(post.text)}</div>
+//         ${
+//           post.image
+//             ? `<img src="${escapeAttr(
+//                 post.image
+//               )}" alt="post image" onerror="this.style.display='none'"/>`
+//             : ""
+//         }
+//         <div class="actions">
+//   <button class="btn like-btn ${
+//     post.likedBy && post.likedBy.includes(state.user.id) ? "liked" : ""
+//   }" data-action="like">❤️ <span class="like-count">${
+// post.likes || 0
+// }</span></button>
+//   ${
+//     post.author.id === state.user.id
+//       ? `<button class="btn" data-action="edit">Edit</button>
+//          <button class="btn" data-action="delete">Delete</button>`
+//       : ""
+//   }
+// </div>
+
+//       </div>
+//     `;
+//     // Event delegation handlers
+//     div
+//       .querySelector('[data-action="like"]')
+//       .addEventListener("click", () => toggleLike(post.id));
+//     div
+//       .querySelector('[data-action="delete"]')
+//       .addEventListener("click", () => deletePost(post.id));
+//     div
+//       .querySelector('[data-action="edit"]')
+//       .addEventListener("click", () => openEdit(post.id));
+//     feed.appendChild(div);
+//   });
+// }
 function renderPosts() {
   const q = searchInput.value.trim().toLowerCase();
+
+  // Show all posts
   let list = state.posts.slice();
 
-  // Filter by search text
+  // Filter by search text (optional)
   if (q) {
     list = list.filter(
       (p) =>
@@ -203,43 +287,38 @@ function renderPosts() {
     div.innerHTML = `
       <div class="post-head">
         <div>Posted By:
-          <div style="font-weight:700 ">${escapeHtml(
-            post.author.name
-          )}</div>
+          <div style="font-weight:700 ">${escapeHtml(post.author.name)}</div>
           <div class="meta">CreatedAt: ${new Date(post.createdAt).toLocaleString()}</div>
         </div>
-         
       </div>
       <div class="post-body">
         <div>${escapeHtml(post.text)}</div>
         ${
           post.image
-            ? `<img src="${escapeAttr(
-                post.image
-              )}" alt="post image" onerror="this.style.display='none'"/>`
+            ? `<img src="${escapeAttr(post.image)}" alt="post image" onerror="this.style.display='none'"/>`
             : ""
         }
         <div class="actions">
+          <!-- Like button visible to all -->
           <button class="btn like-btn ${
             post.likedBy && post.likedBy.includes(state.user.id) ? "liked" : ""
-          }" data-action="like">❤️ <span class="like-count">${
-      post.likes || 0
-    }</span></button>
-          <button class="btn" data-action="edit">Edit</button>
-          <button class="btn" data-action="delete">Delete</button>
+          }" data-action="like">❤️ <span class="like-count">${post.likes || 0}</span></button>
+          
+          <!-- Edit/Delete buttons only for the author -->
+          ${
+            post.author.id === state.user.id
+              ? `<button class="btn" data-action="edit">Edit</button>
+                 <button class="btn" data-action="delete">Delete</button>`
+              : ""
+          }
         </div>
       </div>
     `;
+    
     // Event delegation handlers
-    div
-      .querySelector('[data-action="like"]')
-      .addEventListener("click", () => toggleLike(post.id));
-    div
-      .querySelector('[data-action="delete"]')
-      .addEventListener("click", () => deletePost(post.id));
-    div
-      .querySelector('[data-action="edit"]')
-      .addEventListener("click", () => openEdit(post.id));
+    div.querySelector('[data-action="like"]').addEventListener("click", () => toggleLike(post.id));
+    div.querySelector('[data-action="delete"]')?.addEventListener("click", () => deletePost(post.id));
+    div.querySelector('[data-action="edit"]')?.addEventListener("click", () => openEdit(post.id));
     feed.appendChild(div);
   });
 }
